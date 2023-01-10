@@ -1,0 +1,61 @@
+nav {
+    height: 2rem;
+    padding: 1rem;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.229);
+    justify-content: space-between;
+    background-color: rgb(236, 236, 236);
+    display: flex;
+
+    >div {
+        text-align: center;
+        display: flex;
+
+        >button {
+            margin: 0 2rem;
+            cursor: pointer;
+            border: none;
+            padding: 0.5rem 1.25rem;
+            color: rgb(54, 52, 52);
+            border-radius: 10px;
+        }
+
+        >a {
+            margin: 0 2rem;
+            cursor: pointer;
+            border: none;
+            padding: 0.5rem 1.25rem;
+            color: rgb(54, 52, 52);
+            border-radius: 10px;
+
+            &:hover {
+                margin: 0 2rem;
+                color: rgb(15, 14, 14);
+                padding: 0.5rem 1.25rem;
+                border-radius: 10px;
+                // font-weight: bold;
+
+            }
+
+            >span {
+                position: relative;
+                position: relative;
+                text-align: center;
+                bottom: 6px;
+                padding: 6px;
+                font-size: larger;
+                font-weight: bold;
+            }
+
+            >svg {
+                font-size: 1.5rem;
+                color: black;
+
+            }
+
+
+        }
+
+    }
+
+}
