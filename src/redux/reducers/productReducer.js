@@ -36,7 +36,7 @@ export const colorReducer = createReducer(
 
     })
 export const materialReducer = createReducer(
-    {material: [] },
+    { material: [] },
     {
         getMaterialsRequest: (state) => {
             state.loading = true;
@@ -54,23 +54,40 @@ export const materialReducer = createReducer(
     })
 
 export const fearturReducer = createReducer(
-        {featured: [] },
-        {
-            getFeartursRequest: (state) => {
-                state.loading = true;
-            },
-            getFeartursSuccess: (state, action) => {
-                state.loading = false;
-                state.featured = action.payload;
-    
-            },
-            getFeartursFail: (state, action) => {
-                state.loading = false;
-                state.error = action.payload;
-            },
-    
-        })
+    { featured: [] },
+    {
+        getFeartursRequest: (state) => {
+            state.loading = true;
+        },
+        getFeartursSuccess: (state, action) => {
+            state.loading = false;
+            state.featured = action.payload;
 
+        },
+        getFeartursFail: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        },
+
+    })
+export const allProductReducer = createReducer(
+    { allProduct: [] },
+    {
+        getAllProductsRequest: (state) => {
+            state.loading = true;
+        },
+        getAllProductsSuccess: (state, action) => {
+            console.log('action.payload :>> ', action.payload);
+            state.loading = false;
+            state.allProduct = action.payload;
+
+        },
+        getAllProductsFail: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        },
+
+    })
 
 
 

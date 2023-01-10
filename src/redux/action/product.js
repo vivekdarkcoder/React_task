@@ -1,5 +1,6 @@
 import axios from "axios";
 import { server } from "../store"
+import {modifiProduct} from "../../utils"
 
 const token = 'Ex9yLyRU7wvyxfblpq5HAhfQqUP1vIyo'
 
@@ -46,5 +47,14 @@ export const getFeatured = () => async (dispatch) => {
     dispatch({ type: "getFeartursSuccess", payload: data.featured});
   } catch (error) {
     dispatch({ type: "getFeartursFail", payload: error.response.message });
+  }
+}
+export const getAllProducts = (products, colors, material) => async (dispatch) => {
+  
+  try {
+    dispatch({ type: "getAllProductsRequest" });
+    dispatch({ type: "getAllProductsSuccess", payload:modifiProduct(products, colors, material)});
+  } catch (error) {
+    dispatch({ type: "getAllProductsFail", payload: error.response.message });
   }
 }

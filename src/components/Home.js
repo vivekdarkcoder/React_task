@@ -1,26 +1,24 @@
 import ProductsPage from "./ProductsPage";
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProducts, getColors, getMaterials, getFeatured } from '../redux/action/product'
-import toast from "react-hot-toast"
+import { getProducts, getColors, getMaterials, getFeatured, getAllProducts } from '../redux/action/product'
 import Header from "./Header";
-import {modifiProduct} from "../utils"
 
 const Home = () => {
   const { products } = useSelector((state) => state.product)
   const { colors } = useSelector((state) => state.color)
   const { material } = useSelector((state) => state.material)
   const { featured } = useSelector((state) => state.feature)
+  const { allProduct } = useSelector((state) => state.allProduct)
   const [data, setData] = useState([])
   const dispatch = useDispatch()
 
-
+  console.log(allProduct,"allProducts");
   const feartureValue = (data, featured) => {
     const newProductValue = featured.map((val) => {
-      const featur = modifiProduct(products, colors, material)?.find((data) => data.id === val.productId);
+      const featur = allProduct?.find((data) => data.id === val.productId);
       return { ...featur }
     })
-    console.log(newProductValue, "value")
     return newProductValue
   }
   useEffect(() => {
@@ -28,32 +26,32 @@ const Home = () => {
     dispatch(getColors())
     dispatch(getMaterials())
     dispatch(getFeatured())
-  },[])
  
+  }, [])
+
   useEffect(() => {
- if(products.length > 0){
-  setData(modifiProduct(products, colors, material))
- }
+    if (products.length > 0) {
+      setData(allProduct)
+      dispatch(getAllProducts(products, colors, material))
+    }
   }, [products])
-  
+
 
 
   const handleFeatures = () => {
     const finaleData = feartureValue(data, featured)
     setData(finaleData)
   }
-  const handleAllproducts = ()=>{
-    const allProduct = modifiProduct(products, colors, material)
-    setData(allProduct)
+  const handleAllproducts = () => {
+    const allProducts = allProduct
+    setData(allProducts)
   }
   const filterColor = (e) => {
-    console.log(e.target.value)
-    const colorFilter = modifiProduct(products, colors, material)?.filter((val) => val.colorId === e.target.value)
+    const colorFilter = allProduct?.filter((val) => val.colorId === e.target.value)
     setData(colorFilter)
   }
-  const filterMaterial = (e) =>{
-    console.log(e.target.value)
-    const materialFilter = modifiProduct(products, colors, material)?.filter((val) => val.materialId === e.target.value)
+  const filterMaterial = (e) => {
+    const materialFilter = allProduct?.filter((val) => val.materialId === e.target.value)
     setData(materialFilter)
   }
 

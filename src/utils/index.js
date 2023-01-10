@@ -1,9 +1,7 @@
 export const modifiProduct = (products, colors, material) => {
-    console.log(products, colors, material)
     const modifiedProduts = products.map((product) => {
         const color = colors.find((color) => color.id === product.colorId);
         const materials = material.find((material) => material.id === product.materialId);
-        console.log(color, materials, product);
         return { ...product, colorId: color?.name || 'white', materialId: materials?.name || 'cotton' };
     });
     
