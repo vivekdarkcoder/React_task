@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch} from 'react-redux'
+import {modifiProduct} from "../utils"
 
-
-const ProductsPage = ({data}) => {
+const ProductsPage = ({products, colors, material}) => {
 
   const dispatch = useDispatch()
 
@@ -13,7 +13,7 @@ const ProductsPage = ({data}) => {
   return (
     <div className="items">
       {
-        data.map((val) => {
+        products?.map((val) => {
           return (
             <div className="item" key={val.id}>
               <div className="img-container">

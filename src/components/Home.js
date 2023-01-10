@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getProducts, getColors, getMaterials, getFeatured } from '../redux/action/product'
 import toast from "react-hot-toast"
 import Header from "./Header";
+import {modifiProduct} from "../utils"
 
 const Home = () => {
   const { products } = useSelector((state) => state.product)
@@ -13,22 +14,13 @@ const Home = () => {
   const [data, setData] = useState([])
   const dispatch = useDispatch()
 
-  const modifiProduct = (products, colors, material) => {
 
-    const modifiedProduts = products.map((product) => {
-      const color = colors.find((color) => color.id === product.colorId);
-      const materials = material.find((material) => material.id === product.materialId);
-      return { ...product, colorId: color?.name || 'white', materialId: materials?.name || 'cotton' };
-    });
-    setData(modifiedProduts)
-    return modifiedProduts;
-  };
   const feartureValue = (data, featured) => {
     const newProductValue = featured.map((val) => {
-      const featur = data.find((data) => data.id === val.productId);
+      const featur = modifiProduct(products, colors, material)?.find((data) => data.id === val.productId);
       return { ...featur }
     })
-    console.log(newProductValue ,"value")
+    console.log(newProductValue, "value")
     return newProductValue
   }
   useEffect(() => {
@@ -36,8 +28,15 @@ const Home = () => {
     dispatch(getColors())
     dispatch(getMaterials())
     dispatch(getFeatured())
-    modifiProduct(products, colors, material)
-  }, [])
+  },[])
+ 
+  useEffect(() => {
+ if(products.length > 0){
+  setData(modifiProduct(products, colors, material))
+ }
+  }, [products])
+  
+
 
   const handleFeatures = () => {
     const finaleData = feartureValue(data, featured)
@@ -48,13 +47,16 @@ const Home = () => {
     setData(allProduct)
   }
   const filterColor = (e) => {
-    const colorFilter = data.filter((val) => val.colorId === e.target.value)
+    console.log(e.target.value)
+    const colorFilter = modifiProduct(products, colors, material)?.filter((val) => val.colorId === e.target.value)
     setData(colorFilter)
   }
   const filterMaterial = (e) =>{
-    const materialFilter = data.filter((val) => val.materialId === e.target.value)
+    console.log(e.target.value)
+    const materialFilter = modifiProduct(products, colors, material)?.filter((val) => val.materialId === e.target.value)
     setData(materialFilter)
   }
+
 
   return (
     <>
@@ -84,7 +86,7 @@ const Home = () => {
             )
           }) : <span>No data</span>}
         </div>
-        <ProductsPage data={data} />
+        <ProductsPage products={data} colors={colors} material={material} />
       </div>
     </>
   );
